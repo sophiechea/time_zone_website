@@ -12,10 +12,7 @@
             margin: 50px;
             background-color: #f4f4f4;
             color: #333;
-        }
-
-        h1 {
-            color: #333;
+            font-size: 150%;
         }
 
         #date-container {
@@ -35,8 +32,12 @@
             background: #fff;
         }
 
-        .time {
+        .time, h2, h1 {
             font-size: 1.5em;
+        }
+
+        .time {
+            font-weight: bold;
             margin-top: 10px;
         }
 
@@ -54,7 +55,6 @@
     <div id="date-container">
         <h2>Today's Date: <span id="current-date"></span></h2>
     </div>
-    <h1>US Time Zones</h1>
     <div id="time-container">
         <div class="timezone" id="pacific-time">
             <h2>Pacific Time</h2>
@@ -81,29 +81,29 @@
     <script>
         // Mock city data (replace with actual data)
         const cityData = {
-            "America/Los_Angeles": ["San Francisco", "Seattle"],
+            "America/Los_Angeles": ["San Francisco"],
             "America/Denver": ["Denver"],
-            "America/Chicago": ["Chicago", "San Antonio"],
-            "America/New_York": ["New York", "Atlanta", "Miami"]
+            "America/Chicago": ["San Antonio"],
+            "America/New_York": ["Miami"]
         };
 
         function updateTimes() {
             const now = new Date();
 
             const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
-            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
             displayCityList("pacific-city-list", cityData["America/Los_Angeles"]);
 
             const mountainTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Denver"}));
-            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
             displayCityList("mountain-city-list", cityData["America/Denver"]);
 
             const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
-            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
             displayCityList("central-city-list", cityData["America/Chicago"]);
 
             const easternTime = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
             displayCityList("eastern-city-list", cityData["America/New_York"]);
             
             // Display today's date
