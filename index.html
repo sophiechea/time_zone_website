@@ -9,22 +9,25 @@
         body {
             font-family: 'Dosis', sans-serif;
             text-align: center;
-            margin: 50px;
+            margin: 20px;
             background-color: #f4f4f4;
             color: #333;
-            font-size: 150%;
+            font-size: 120%;
         }
 
         #date-container {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         #time-container {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
         }
 
         .timezone {
+            width: 45%;
+            margin-bottom: 20px;
             border: 1px solid #ddd;
             padding: 20px;
             border-radius: 10px;
@@ -49,30 +52,41 @@
         .city-list-item {
             margin-bottom: 10px;
         }
+
+        /* Media query for smaller screens (e.g., iPhone) */
+        @media (max-width: 600px) {
+            #time-container {
+                flex-direction: column;
+            }
+
+            .timezone {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="date-container">
-        <h2>Today is: <span id="current-date"></span></h2>
+        <h2>Today's Date: <span id="current-date"></span></h2>
     </div>
     <div id="time-container">
         <div class="timezone" id="pacific-time">
-            <h2>Pacific (-1)</h2>
+            <h2>Pacific Time</h2>
             <p class="time"></p>
             <ul class="city-list" id="pacific-city-list"></ul>
         </div>
         <div class="timezone" id="mountain-time">
-            <h2>Mountain (±0)</h2>
+            <h2>Mountain Time</h2>
             <p class="time"></p>
             <ul class="city-list" id="mountain-city-list"></ul>
         </div>
         <div class="timezone" id="central-time">
-            <h2>Central (+1)</h2>
+            <h2>Central Time</h2>
             <p class="time"></p>
             <ul class="city-list" id="central-city-list"></ul>
         </div>
         <div class="timezone" id="eastern-time">
-            <h2>Eastern (+2)</h2>
+            <h2>Eastern Time</h2>
             <p class="time"></p>
             <ul class="city-list" id="eastern-city-list"></ul>
         </div>
@@ -81,10 +95,10 @@
     <script>
         // Mock city data (replace with actual data)
         const cityData = {
-            "America/Los_Angeles": ["San Francisco", "Seattle"],
-            "America/Denver": ["Denver"],
-            "America/Chicago": ["Chicago","San Antonio"],
-            "America/New_York": ["New York", "Atlanta", "Miami"]
+            "America/Los_Angeles": ["Los Angeles", "San Diego", "San Jose", "San Francisco", "Seattle"],
+            "America/Denver": ["Denver", "Phoenix", "Albuquerque", "Mesa", "Colorado Springs"],
+            "America/Chicago": ["Chicago", "Houston", "Dallas", "San Antonio", "Austin"],
+            "America/New_York": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]
         };
 
         function updateTimes() {
