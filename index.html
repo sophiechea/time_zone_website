@@ -17,10 +17,13 @@
             color: #333;
         }
 
+        #date-container {
+            margin-bottom: 20px;
+        }
+
         #time-container {
             display: flex;
             justify-content: space-around;
-            margin-top: 30px;
         }
 
         .timezone {
@@ -30,51 +33,94 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background: #fff;
         }
+
+        .city-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .city-list-item {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+    <div id="date-container">
+        <h2>Today's Date: <span id="current-date"></span></h2>
+    </div>
     <h1>US Time Zones</h1>
     <div id="time-container">
         <div class="timezone" id="pacific-time">
             <h2>Pacific Time</h2>
             <p></p>
+            <ul class="city-list" id="pacific-city-list"></ul>
         </div>
         <div class="timezone" id="mountain-time">
             <h2>Mountain Time</h2>
             <p></p>
+            <ul class="city-list" id="mountain-city-list"></ul>
         </div>
         <div class="timezone" id="central-time">
             <h2>Central Time</h2>
             <p></p>
+            <ul class="city-list" id="central-city-list"></ul>
         </div>
         <div class="timezone" id="eastern-time">
             <h2>Eastern Time</h2>
             <p></p>
+            <ul class="city-list" id="eastern-city-list"></ul>
         </div>
     </div>
 
     <script>
+        // Mock city data (replace with actual data)
+        const cityData = {
+            "America/Los_Angeles": ["Los Angeles", "San Diego", "San Jose", "San Francisco", "Seattle"],
+            "America/Denver": ["Denver", "Phoenix", "Albuquerque", "Mesa", "Colorado Springs"],
+            "America/Chicago": ["Chicago", "Houston", "Dallas", "San Antonio", "Austin"],
+            "America/New_York": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]
+        };
+
         function updateTimes() {
             const now = new Date();
 
             const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
-            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString();
+            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            displayCityList("pacific-city-list", cityData["America/Los_Angeles"]);
 
             const mountainTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Denver"}));
-            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString();
+            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            displayCityList("mountain-city-list", cityData["America/Denver"]);
 
             const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
-            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString();
+            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            displayCityList("central-city-list", cityData["America/Chicago"]);
 
             const easternTime = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString();
+            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            displayCityList("eastern-city-list", cityData["America/New_York"]);
+            
+            // Display today's date
+            document.getElementById("current-date").innerText = now.toLocaleDateString();
+        }
+
+        function displayCityList(listId, cities) {
+            const cityList = document.getElementById(listId);
+            cityList.innerHTML = ""; // Clear previous list
+
+            cities.forEach(city => {
+                const listItem = document.createElement("li");
+                listItem.className = "city-list-item";
+                listItem.innerText = city;
+                cityList.appendChild(listItem);
+            });
         }
 
         // Initial update
         updateTimes();
 
-        // Update every second
-        setInterval(updateTimes, 1000);
+        // Update every minute
+        setInterval(updateTimes, 60000);
     </script>
 </body>
 </html>
