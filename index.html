@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>US Time Zones</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&display=swap">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Dosis', sans-serif;
             text-align: center;
             margin: 50px;
             background-color: #f4f4f4;
@@ -34,6 +35,11 @@
             background: #fff;
         }
 
+        .time {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
         .city-list {
             list-style-type: none;
             padding: 0;
@@ -52,22 +58,22 @@
     <div id="time-container">
         <div class="timezone" id="pacific-time">
             <h2>Pacific Time</h2>
-            <p></p>
+            <p class="time"></p>
             <ul class="city-list" id="pacific-city-list"></ul>
         </div>
         <div class="timezone" id="mountain-time">
             <h2>Mountain Time</h2>
-            <p></p>
+            <p class="time"></p>
             <ul class="city-list" id="mountain-city-list"></ul>
         </div>
         <div class="timezone" id="central-time">
             <h2>Central Time</h2>
-            <p></p>
+            <p class="time"></p>
             <ul class="city-list" id="central-city-list"></ul>
         </div>
         <div class="timezone" id="eastern-time">
             <h2>Eastern Time</h2>
-            <p></p>
+            <p class="time"></p>
             <ul class="city-list" id="eastern-city-list"></ul>
         </div>
     </div>
@@ -75,10 +81,10 @@
     <script>
         // Mock city data (replace with actual data)
         const cityData = {
-            "America/Los_Angeles": ["Los Angeles", "San Diego", "San Jose", "San Francisco", "Seattle"],
-            "America/Denver": ["Denver", "Phoenix", "Albuquerque", "Mesa", "Colorado Springs"],
-            "America/Chicago": ["Chicago", "Houston", "Dallas", "San Antonio", "Austin"],
-            "America/New_York": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]
+            "America/Los_Angeles": ["San Francisco", "Seattle"],
+            "America/Denver": ["Denver"],
+            "America/Chicago": ["Chicago", "San Antonio"],
+            "America/New_York": ["New York", "Atlanta", "Miami"]
         };
 
         function updateTimes() {
