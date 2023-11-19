@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Time Zones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #time-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .timezone {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>US Time Zones</h1>
+    <div id="time-container">
+        <div class="timezone" id="eastern-time">
+            <h2>Eastern Time</h2>
+            <p></p>
+        </div>
+        <div class="timezone" id="central-time">
+            <h2>Central Time</h2>
+            <p></p>
+        </div>
+        <div class="timezone" id="mountain-time">
+            <h2>Mountain Time</h2>
+            <p></p>
+        </div>
+        <div class="timezone" id="pacific-time">
+            <h2>Pacific Time</h2>
+            <p></p>
+        </div>
+    </div>
+
+    <script>
+        function updateTimes() {
+            const now = new Date();
+
+            const easternTime = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString();
+
+            const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
+            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString();
+
+            const mountainTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Denver"}));
+            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString();
+
+            const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
+            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString();
+        }
+
+        // Initial update
+        updateTimes();
+
+        // Update every second
+        setInterval(updateTimes, 1000);
+    </script>
+</body>
+</html>
