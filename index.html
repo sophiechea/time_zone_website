@@ -81,33 +81,40 @@
     <script>
         // Mock city data (replace with actual data)
         const cityData = {
-            "America/Los_Angeles": ["San Francisco"],
-            "America/Denver": ["Denver"],
-            "America/Chicago": ["San Antonio"],
-            "America/New_York": ["Miami"]
+            "America/Los_Angeles": ["Los Angeles", "San Diego", "San Jose", "San Francisco", "Seattle"],
+            "America/Denver": ["Denver", "Phoenix", "Albuquerque", "Mesa", "Colorado Springs"],
+            "America/Chicago": ["Chicago", "Houston", "Dallas", "San Antonio", "Austin"],
+            "America/New_York": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"]
         };
 
         function updateTimes() {
             const now = new Date();
 
             const pacificTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
-            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = pacificTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            document.getElementById("pacific-time").getElementsByTagName("p")[0].innerText = convertToRegularTime(pacificTime);
             displayCityList("pacific-city-list", cityData["America/Los_Angeles"]);
 
             const mountainTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Denver"}));
-            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = mountainTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            document.getElementById("mountain-time").getElementsByTagName("p")[0].innerText = convertToRegularTime(mountainTime);
             displayCityList("mountain-city-list", cityData["America/Denver"]);
 
             const centralTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
-            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = centralTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            document.getElementById("central-time").getElementsByTagName("p")[0].innerText = convertToRegularTime(centralTime);
             displayCityList("central-city-list", cityData["America/Chicago"]);
 
             const easternTime = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = easternTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            document.getElementById("eastern-time").getElementsByTagName("p")[0].innerText = convertToRegularTime(easternTime);
             displayCityList("eastern-city-list", cityData["America/New_York"]);
             
             // Display today's date
             document.getElementById("current-date").innerText = now.toLocaleDateString();
+        }
+
+        function convertToRegularTime(time) {
+            const hours = time.getHours() % 12 || 12; // Convert military time to 12-hour format
+            const minutes = time.getMinutes().toString().padStart(2, '0');
+            const ampm = time.getHours() < 12 ? 'AM' : 'PM';
+            return `${hours}:${minutes} ${ampm}`;
         }
 
         function displayCityList(listId, cities) {
